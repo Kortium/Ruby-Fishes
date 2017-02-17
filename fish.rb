@@ -7,6 +7,8 @@ class Fish
   # Модели рыбок
   @@fish_models={:up => "><*>", :right => "><*>", :left => "<*><", :down => "<*><"}
   @@dead_fish_models={:up => "><x>", :right => "><x>", :left => "<x><", :down => "<x><"}
+
+  @@model_length=@@fish_models[:up].length
   # Конструктор рыбы (можно передать имя)
   def initialize (x = 0, y = 0, orientation = :up, clear=false)
     # Параметры рыбы
@@ -68,6 +70,30 @@ class Fish
     else
       @@dead_fish_models[@orientation]
     end
+  end
+  def get_fish_clear
+    string = ''
+    for i in 0..@@model_length
+      string += ' '
+    end
+    string
+  end
+  def turn_around!
+    case @orientation
+    when :up
+      @orientation = :down
+    when :down
+      @orientation = :up
+    when :right
+      @orientation = :left
+    when :left
+      @orientation = :right
+    else
+      puts("Wrong orientation: #{@orientation.to_s}")
+    end
+  end
+  def get_model_length
+    @@model_length
   end
   # Рыбу можно убить ><x>
   def kill_fish!
