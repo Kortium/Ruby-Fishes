@@ -23,23 +23,35 @@ class Fish
   end
   # Рыба может менять направление
   def rotate! ()
-    index = (@@directions.index(@orientation)+rand(@@directions.length-1)+1).modulo(@@directions.length)
-    @orientation = @@directions[index]
+    if is_alive?
+      index = (@@directions.index(@orientation)+rand(@@directions.length-1)+1).modulo(@@directions.length)
+      @orientation = @@directions[index]
+    else
+      @orientation = :up
+    end
   end
 
   # Рыба умеет плавать
   def swim! ()
-    case @orientation
-    when :up
-      @coordinates[:y] += rand(@speed)+1
-    when :down
-      @coordinates[:y] += -rand(@speed)-1
-    when :right
-      @coordinates[:x] += rand(@speed)+1
-    when :left
-      @coordinates[:x] += -rand(@speed)-1
+    if is_alive?
+      case @orientation
+      when :up
+        @coordinates[:y] += -rand(@speed)-1
+      when :down
+        @coordinates[:y] += rand(@speed)+1
+      when :right
+        @coordinates[:x] += rand(@speed)+1
+      when :left
+        @coordinates[:x] += -rand(@speed)-1
+      else
+        puts("Wrong orientation: #{@orientation.to_s}")
+      end
     else
-      puts("Wrong orientation: #{@orientation.to_s}")
+      if @coordinates[:y] == 1
+        "x.x"
+      else
+        @coordinates[:y] += -1
+      end
     end
   end
   # Можно проверить жива рыба или нет?
@@ -78,6 +90,25 @@ class Fish
     end
     string
   end
+
+  def update_single_fish
+    if is_alive?
+      current_move = rand(6)
+      if current_move == 0
+        rotate!
+      else
+        swim!
+      end
+      fish_is_dead = rand(100)
+      if fish_is_dead == 9
+        kill_fish!
+      end
+    elsif @coordinates[:y] != 1
+      rotate!
+      swim!
+    end
+  end
+
   def turn_around!
     case @orientation
     when :up

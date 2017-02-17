@@ -6,7 +6,7 @@ require './helper.rb'
 
 class Tank
 
-  def initialize (size_x = 40, size_y = 10, fish_number = 7)
+  def initialize (size_x = 70, size_y = 20, fish_number = 17)
     @size = {:x => size_x, :y => size_y}
     @fish_number = fish_number
     @fishes = Array.new(fish_number)
@@ -52,12 +52,7 @@ class Tank
   end
   def update_fishes
     @fishes.each { |fish|
-      current_move = rand(6)
-      if current_move == 0
-        fish.rotate!
-      else
-        fish.swim!
-      end
+      fish.update_single_fish
       hit = check_boundaries(fish.get_coords, fish.get_model_length)
       if hit then
         fish.turn_around!
@@ -76,12 +71,16 @@ class Tank
   end
   def runtime
     system "clear"
-    while true
-      clear_fishes
-      update_fishes
-      draw_tank
-      sleep 0.2
+    t = Thread.new do
+      while true
+        clear_fishes
+        update_fishes
+        draw_tank
+        sleep 0.2
+      end
     end
+    Curses.getch
+    t.kill
   end
 
 end
