@@ -54,16 +54,19 @@ class Fish
   def print_coords
     puts ("#{@coordinates[:x]} #{@coordinates[:y]}")
   end
+  # Можно узнать направление рыбы
+  def print_orientation
+    @orientation
+  end
   # Напечатать ориентацию
   def print_orientation
     puts(@orientation.to_s)
-    print_fish
   end
-  def print_fish
+  def get_fish_view
     if is_alive?
-      puts(@@fish_models[@orientation])
+      @@fish_models[@orientation]
     else
-      puts(@@dead_fish_models[@orientation])
+      @@dead_fish_models[@orientation]
     end
   end
   # Рыбу можно убить ><x>
@@ -71,36 +74,3 @@ class Fish
       @state = :dead
   end
 end
-
-fish = Fish.new
-system "cls"
-fish.print_orientation
-gets.chomp
-fish.rotate!
-system "cls"
-fish.print_orientation
-gets.chomp
-fish.rotate!
-system "cls"
-fish.print_orientation
-gets.chomp
-fish.rotate!
-system "cls"
-fish.print_orientation
-gets.chomp
-fish.rotate!
-system "cls"
-fish.print_orientation
-gets.chomp
-fish.kill_fish!
-system "cls"
-fish.print_orientation
-gets.chomp
-fish.rotate!
-system "cls"
-fish.print_orientation
-gets.chomp
-fish.rotate!
-system "cls"
-fish.print_orientation
-gets.chomp
