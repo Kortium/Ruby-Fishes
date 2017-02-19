@@ -24,8 +24,8 @@ class Fish
   # Рыба может менять направление
   def rotate! ()
     if is_alive?
-      index = (@@directions.index(@orientation)+rand(@@directions.length-1)+1).modulo(@@directions.length)
-      @orientation = @@directions[index]
+      orientation_index = (@@directions.index(@orientation)+rand(@@directions.length-1)+1).modulo(@@directions.length)
+      @orientation = @@directions[orientation_index]
     else
       @orientation = :up
     end
@@ -56,9 +56,7 @@ class Fish
   end
   # Можно проверить жива рыба или нет?
   def is_alive?
-    if @state == :alive then true
-    else false
-    end
+    @state == :alive
   end
   # Можно узнать координаты рыбы
   def get_coords

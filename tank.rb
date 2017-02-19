@@ -10,13 +10,25 @@ class Tank
     @size = {:x => size_x, :y => size_y}
     @fish_number = fish_number
     @fishes = Array.new(fish_number)
+    @alive_fishes = fish_number
     for i in 0..fish_number-1
       x = rand(8..size_x)-4
       y = rand(size_y)
       @fishes[i] = Fish.new(x,y)
     end
-    puts('Jobs done')
-    puts(@fishes.to_s)
+  end
+  def restart (size_x = 70, size_y = 20, fish_number = 17)
+    @size[:x] = size_x
+    @size[:y] = size_y
+    @fish_number = fish_number
+    Curses.clear
+    @fishes = Array.new(fish_number)
+    @alive_fishes = fish_number
+    for i in 0..fish_number-1
+      x = rand(8..size_x)-4
+      y = rand(size_y)
+      @fishes[i] = Fish.new(x,y)
+    end
   end
   def draw_tank
     i=0
@@ -36,7 +48,9 @@ class Tank
       put_at_coordinates(j, @size[:y], '_')
     end
     put_at_coordinates(@size[:x], @size[:y], '|')
-    Curses.refresh
+  end
+  def get_size
+    @size
   end
   def draw_fishes
     @fishes.each { |fish|
@@ -49,6 +63,22 @@ class Tank
       coords = fish.get_coords
       put_at_coordinates(coords[:x], coords[:y], fish.get_fish_clear)
     }
+  end
+  def alive_fishes?
+    count_alive_fishes
+    if @alive_fishes>0 then true
+    else false
+    end
+  end
+  def get_alive_fishes
+    count_alive_fishes
+  end
+  def count_alive_fishes
+    @alive_fishes = 0
+    @fishes.each { |fish|
+      if fish.is_alive? then @alive_fishes +=1 end
+    }
+    @alive_fishes
   end
   def update_fishes
     @fishes.each { |fish|
@@ -69,21 +99,4 @@ class Tank
       false
     end
   end
-  def runtime
-    system "clear"
-    t = Thread.new do
-      while true
-        clear_fishes
-        update_fishes
-        draw_tank
-        sleep 0.2
-      end
-    end
-    Curses.getch
-    t.kill
-  end
-
 end
-
-tank = Tank.new
-tank.runtime
