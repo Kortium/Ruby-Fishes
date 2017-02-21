@@ -1,6 +1,6 @@
-require 'tank'
-require 'player'
-require 'helper'
+require './tank'
+require './player'
+require './helper'
 
 class Shop_keeper
   def initialize

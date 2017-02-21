@@ -1,5 +1,5 @@
-require 'tank'
-require 'store'
+require './tank'
+require './store'
 class Engine
   def initialize
     @state = Store.new

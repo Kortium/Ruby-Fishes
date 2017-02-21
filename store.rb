@@ -1,4 +1,4 @@
-require 'shop_keeper'
+require './shop_keeper'
 
 class Store
   def initialize
