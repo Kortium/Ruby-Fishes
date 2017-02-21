@@ -7,6 +7,7 @@ require 'helper'
 class Tank
 
   def initialize (size_x = 70, size_y = 20, fish_number = 17)
+    check_sizes(size_x, size_y)
     @size = {:x => size_x, :y => size_y}
     @fish_number = fish_number
     @fishes = Array.new(fish_number)
@@ -18,6 +19,7 @@ class Tank
     end
   end
   def restart (size_x = 70, size_y = 20, fish_number = 17)
+    check_sizes(size_x, size_y)
     @size[:x] = size_x
     @size[:y] = size_y
     @fish_number = fish_number
@@ -30,6 +32,16 @@ class Tank
       @fishes[i] = Fish.new(x,y)
     end
   end
+
+  def check_sizes (size_x, size_y)
+    if size_x>70 || size_y>20
+      raise "This tank is to big"
+    end
+    if size_x<5 || size_y<3
+      raise "This tank is to small"
+    end
+  end
+
   def draw_tank
     i=0
     j=1
@@ -83,14 +95,14 @@ class Tank
   def update_fishes
     @fishes.each { |fish|
       fish.update_single_fish
-      hit = check_boundaries(fish.get_coords, fish.get_model_length)
+      hit = check_is_out_of_boundaries(fish.get_coords, fish.get_model_length)
       if hit then
         fish.turn_around!
         fish.swim!
       end
     }
   end
-  def check_boundaries(coord = {:x => 3, :y => 3}, length = 4)
+  def check_is_out_of_boundaries(coord = {:x => 3, :y => 3}, length = 4)
     if coord[:x]-1<0 || coord[:x]+4>@size[:x]
       true
     elsif coord[:y]<1 || coord[:y]>=@size[:y]
