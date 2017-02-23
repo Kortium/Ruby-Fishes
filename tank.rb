@@ -61,6 +61,11 @@ class Tank
     end
     put_at_coordinates(@size[:x], @size[:y], '|')
   end
+
+  # in ruby getter and setter methods naming don't using prefix 'get_param' or 'set_param'.
+  # simple using is (in this case) is just 'size'.
+  # obj.size => invokes def size;
+  # obj.size = 2 => invokes def size=(size);
   def get_size
     @size
   end

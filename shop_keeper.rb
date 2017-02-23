@@ -19,7 +19,7 @@ class Shop_keeper
       greetings = generate_hello
       Curses.addstr(greetings)
       get_answer
-    when "Pick Tank"
+    when "Pick Tank" # Try to use CONSTANT_STYLE instead of "String style" to conditions.
       question = generate_ask_tank_params
       Curses.addstr(question)
       get_answer
@@ -39,6 +39,7 @@ class Shop_keeper
   end
 
   def generate_hello
+    # this is good example to start using YAML for long string values.
     hello = ["Hi. What's you're name? ", "Good morning, what is your name? ", "Hallo! Haven't we met before? What is your name? "]
     @character = rand(3)
     hello[@character]
