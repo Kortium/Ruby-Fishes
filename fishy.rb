@@ -2,11 +2,13 @@ require './tank'
 require './store'
 class Engine
   def initialize
-    @state = Store.new
+    @store = Store.new
+    @tank = @store.get_tank_from_shop_keeper
   end
-  def runtime(tank)
+  def runtime
     system "clear"
     Curses.noecho
+    tank = @tank
     $state = "working"
     t = Thread.new do
       while true
@@ -33,7 +35,7 @@ class Engine
         Curses.refresh
       end
     end
-    char = Curses.getch
+    char = ""
     until char == "q"
       char = Curses.getch
       case char
@@ -50,5 +52,4 @@ class Engine
 end
 
 engine = Engine.new
-tank = Tank.new(40,10,24)
-engine.runtime(tank)
+engine.runtime

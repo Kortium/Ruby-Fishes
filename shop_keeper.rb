@@ -12,6 +12,9 @@ class Shop_keeper
   def print_state
     Curses.addstr(@state)
   end
+  def get_tank
+    Tank.new(@tank_sizes[:x], @tank_sizes[:y], @player.get_fishes)
+  end
 
   def talk
     case @state
@@ -32,9 +35,7 @@ class Shop_keeper
       Curses.addstr(question)
       get_answer
     when "Ready"
-      Curses.addstr("Tank Sizes #{@tank_sizes[:x]} #{@tank_sizes[:y]}
-      Fishes #{@player.get_fishes}")
-      Curses.getstr
+
     end
   end
 
@@ -63,6 +64,10 @@ class Shop_keeper
     fish_number[@character]
   end
 
+  def get_state
+    @state
+  end
+
   def get_answer
     answer = Curses.getstr
     if answer == "Exit" then @state = "Exit" end
@@ -73,7 +78,7 @@ class Shop_keeper
     when "Pick Tank", "Tank Error"
       @tank_sizes[:x] = answer.scan(/\d+/)[0].to_i
       @tank_sizes[:y] = answer.scan(/\d+/)[1].to_i
-      if (@tank_sizes[:x]<10 || @tank_sizes[:y]<5 || @tank_sizes[:x]>60 || @tank_sizes[:y]>25) then
+      if (@tank_sizes[:x]<10 || @tank_sizes[:y]<5 || @tank_sizes[:x]>60 || @tank_sizes[:y]>20) then
         @state = "Tank Error"
       else
         @state = "Pick fish number"
@@ -86,9 +91,3 @@ class Shop_keeper
     end
   end
 end
-
-steve = Shop_keeper.new
-steve.talk
-steve.talk
-steve.talk
-steve.talk

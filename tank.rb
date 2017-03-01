@@ -18,7 +18,7 @@ class Tank
       @fishes[i] = Fish.new(x,y)
     end
   end
-  def restart (size_x = 70, size_y = 20, fish_number = 17)
+  def restart (size_x = @size[:x], size_y = @size[:y], fish_number = @fish_number)
     check_sizes(size_x, size_y)
     @size[:x] = size_x
     @size[:y] = size_y

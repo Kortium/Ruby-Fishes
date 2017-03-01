@@ -1,0 +1,30 @@
+---
+frazes:
+  - greet:
+    - basic:
+      - "Hi. What's you're name? "
+    - polite:
+      - "Good morning, what is your name? "
+    - funky:
+      - "Hallo! Haven't we met before? What is your name? "
+  - tank_question:
+    - basic:
+      - "Hi #{@player.get_name}. You are here for the tank? What do you need? (enter length and height of the tank) "
+    - polite:
+      - "Good morning, #{@player.get_name}. What tank do you need? (enter length and height of the tank) "
+    - funky:
+      - "Hallo! #{@player.get_name}. Let's get started? (enter length and height of the tank) "
+  - wrong_tank_quastion:
+    - basic:
+      - "We're sorry but we don't have this one, may be another? (enter length and height of the tank) "
+    - polite:
+      - "Sorry but we don't have a tank to fit you criteria, may be another one? (enter length and height of the tank) "
+    - funky:
+      - "Ok pal! Huh? Stop. We don't have this tank pick another one... (enter length and height of the tank) "
+  - fish_question:
+    - basic:
+      - "How many fishes do you need? (enter fish number) "
+    - polite:
+      - "Ok, now we need to decide number of the fishes. (enter fish number) "
+    - funky:
+      - "Hehey we are on the finish line, fishes? (enter fish number) "
