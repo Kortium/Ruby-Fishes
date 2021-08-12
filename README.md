@@ -1,11 +1,3 @@
-# FIXME: when you are describing how to use you app in readme you need to cover following:
-# 1. What it is?
-# 2. Software requirements?
-# 3. How to install your app
-# 4. How to run / start yor app
-# 5. How to use you app (basic use cases)
-# 6. How to ensure that your app is running correct / how to run your tests and what is passing criteria.
-
 # Ruby-Fishes
 Ruby-Fishes is a little game consists of 2 parts
 
